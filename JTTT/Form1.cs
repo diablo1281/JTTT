@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using HtmlAgilityPack;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -32,6 +33,10 @@ namespace JTTT
             Debug.WriteLine("Word: " + match_word);
             Debug.WriteLine("Mail: " + mail);
 
+            HtmlAgilityPack.HtmlDocument html = new HtmlAgilityPack.HtmlDocument();
+            html.LoadHtml(url);
+
+
             //Ustawianie adresów mailowych
             MailAddress from_address = new MailAddress(main_mail, "Nasz piękny program");
             MailAddress to_address = new MailAddress(mail, "Client");
@@ -45,11 +50,11 @@ namespace JTTT
             message.SubjectEncoding = System.Text.Encoding.UTF8;
 
             //Ustawianie treści
-            message.Body = "<b>Test Mail</b><br>using <b>HTML</b>.";
+            message.Body = html.ToString();
             message.BodyEncoding = System.Text.Encoding.UTF8;
 
             //Treść w htmlu?
-            message.IsBodyHtml = true;
+            message.IsBodyHtml = false;
 
             SendMail(message, main_mail, pass);
         }
