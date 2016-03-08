@@ -23,11 +23,11 @@ namespace JTTT
 
             //Dodaj do listy pierwszej
             comboBoxIF.Items.Add("Wyszukaj obrazek związany z hasłem");
-            comboBoxIF.Items.Add("asdasdasdasdasdasdasd");
+            comboBoxIF.Items.Add("");
 
             //Dodaj do listy drugiej
             comboBoxTHEN.Items.Add("Wyślij e-maila z obrazkiem");
-            comboBoxTHEN.Items.Add("Wysda");
+            comboBoxTHEN.Items.Add("");
 
             comboBoxIF.SelectedItem = "Wyszukaj obrazek związany z hasłem";
             comboBoxTHEN.SelectedItem = "Wyślij e-maila z obrazkiem";
