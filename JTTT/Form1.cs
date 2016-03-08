@@ -19,6 +19,9 @@ namespace JTTT
         public Form1()
         {
             InitializeComponent();
+
+            comboBoxIF.Items.Add("Wyszukaj obrazek związany z hasłem");
+            comboBoxTHEN.Items.Add("Wyślij e-maila z obrazkiem");
         }
 
         private void buttonMake_Click(object sender, EventArgs e)
@@ -50,10 +53,13 @@ namespace JTTT
             message.SubjectEncoding = System.Text.Encoding.UTF8;
 
             //Ustawianie treści
-            message.Body = html.ToString();
+            message.Body = "";
             message.BodyEncoding = System.Text.Encoding.UTF8;
 
-            //Treść w htmlu?
+            //Ustawianie załączników
+            //message.Attachments.Add();
+
+            //Czy treść jest htmlu?
             message.IsBodyHtml = false;
 
             SendMail(message, main_mail, pass);
@@ -70,6 +76,22 @@ namespace JTTT
             client.EnableSsl = true;
             client.Credentials = new NetworkCredential(mail, pass);
             client.Send(message);
+        }
+
+        private void comboBoxIF_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxIF.Text == "Wyszukaj obrazek związany z hasłem")
+                panelFindPicture.Visible = true;
+            else
+                panelFindPicture.Visible = false;
+        }
+
+        private void comboBoxTHEN_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxTHEN.Text == "Wyślij e-maila z obrazkiem")
+                panelSendMail.Visible = true;
+            else
+                panelSendMail.Visible = false;
         }
     }
 }
