@@ -24,10 +24,24 @@ namespace JTTT
 
         public string GetPageHtml(string url)
         {
+            try
+            {
+                var web_request = WebRequest.Create(url);
+                var web_response = web_request.GetResponse();
+
+                Debug.WriteLine("URL is exist");
+            }
+            catch(WebException e)
+            {
+                Debug.WriteLine("Couldn't resolved url: " + e.Message);
+                MessageBox.Show("Podana strona nie istnieje", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "";
+            }
+
             WebClient web_client = new WebClient();
             web_client.Encoding = Encoding.UTF8;
-            string html = System.Net.WebUtility.HtmlDecode(web_client.DownloadString(url));
-            return html;
+            
+            return System.Net.WebUtility.HtmlDecode(web_client.DownloadString(url));
         }
 
         public string Url
@@ -46,11 +60,17 @@ namespace JTTT
             }
         }
 
-        public void FindImages(ref List<string> alts, ref List<string> srcs, string url, string match_word)
+        public bool FindImages(ref List<string> alts, ref List<string> srcs, string url, string match_word)
         {
             //Wyszukiwanie obrazów z pasującym opisem
             HtmlAgilityPack.HtmlDocument html = new HtmlAgilityPack.HtmlDocument();
-            html.LoadHtml(GetPageHtml(url));
+
+            var page_html = GetPageHtml(url);
+            if (String.IsNullOrEmpty(page_html))
+                return false;
+            
+            html.LoadHtml(page_html);
+            
             var nodes = html.DocumentNode.Descendants("img");
             foreach (var node in nodes)
             {
@@ -73,6 +93,8 @@ namespace JTTT
                 }
 
             }
+
+            return true;
         }
     }
 }

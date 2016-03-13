@@ -37,9 +37,9 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.znajdzNaStronie = new JTTT.ZnajdzNaStronie();
             this.wyslijMaila = new JTTT.WyslijMaila();
+            this.znajdzNaStronie = new JTTT.ZnajdzNaStronie();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -120,15 +120,6 @@
             this.panel3.Size = new System.Drawing.Size(493, 571);
             this.panel3.TabIndex = 15;
             // 
-            // znajdzNaStronie
-            // 
-            this.znajdzNaStronie.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.znajdzNaStronie.Location = new System.Drawing.Point(20, 112);
-            this.znajdzNaStronie.Name = "znajdzNaStronie";
-            this.znajdzNaStronie.Size = new System.Drawing.Size(437, 90);
-            this.znajdzNaStronie.TabIndex = 14;
-            this.znajdzNaStronie.Visible = false;
-            // 
             // wyslijMaila
             // 
             this.wyslijMaila.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -137,6 +128,15 @@
             this.wyslijMaila.Size = new System.Drawing.Size(441, 49);
             this.wyslijMaila.TabIndex = 15;
             this.wyslijMaila.Visible = false;
+            // 
+            // znajdzNaStronie
+            // 
+            this.znajdzNaStronie.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.znajdzNaStronie.Location = new System.Drawing.Point(20, 112);
+            this.znajdzNaStronie.Name = "znajdzNaStronie";
+            this.znajdzNaStronie.Size = new System.Drawing.Size(437, 90);
+            this.znajdzNaStronie.TabIndex = 14;
+            this.znajdzNaStronie.Visible = false;
             // 
             // Form1
             // 
@@ -148,7 +148,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "JTTT (JS-BR)";
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);

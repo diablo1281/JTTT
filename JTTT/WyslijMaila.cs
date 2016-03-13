@@ -34,13 +34,24 @@ namespace JTTT
             }
         }
 
-        public void SetAddresses(ref MailMessage message, string to, string to_name)
+        public bool SetAddresses(ref MailMessage message, string to, string to_name)
         {
-            MailAddress from_address = new MailAddress(from, from_name);
-            MailAddress to_address = new MailAddress(to, to_name);
+            try
+            {
+                MailAddress from_address = new MailAddress(from, from_name);
+                MailAddress to_address = new MailAddress(to, to_name);
 
-            message.From = from_address;
-            message.To.Add(to_address);
+                message.From = from_address;
+                message.To.Add(to_address);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Niepoprawny format adresu email", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine("Exception caught: " + e.ToString());
+                return false;
+            }
+
+            return true;
         }
 
         public void SetSubject(ref MailMessage message, string subject)
@@ -67,15 +78,25 @@ namespace JTTT
         }
 
         public void SendMail(ref MailMessage message)
-        { 
-            SmtpClient client = new SmtpClient();
-            client.Host = "smtp.googlemail.com";
-            client.EnableSsl = true;
-            client.UseDefaultCredentials = false;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.EnableSsl = true;
-            client.Credentials = new NetworkCredential(from, pass);
-            client.Send(message);
+        {
+            try
+            {
+                SmtpClient client = new SmtpClient();
+                client.Host = "smtp.googlemail.com";
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.EnableSsl = true;
+                client.Credentials = new NetworkCredential(from, pass);
+                client.Send(message);
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine("Error: Couldn't send email");
+                MessageBox.Show("Mail nie mógł zostać wysłany.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            MessageBox.Show("Mail został wysłany.", "Wysłano", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
