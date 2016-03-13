@@ -5,10 +5,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +19,8 @@ namespace JTTT
 {
     public partial class Form1 : Form
     {
+        private CustomLogger logger = new CustomLogger();
+
         public Form1()
         {
             InitializeComponent();
@@ -37,12 +41,15 @@ namespace JTTT
         {
             if (znajdzNaStronie.Visible)
             {
+                logger.Write("buttonMake_Click", "Wyszukiwanie obrazków");
+
                 var alts = new List<string>();
                 var srcs = new List<string>();
 
                 if (!FindImages(ref alts, ref srcs))
                     return;
 
+                logger.Write("buttonMake_Click", "Wysyłanie emaila");
                 if (wyslijMaila.Visible)
                     SendImages(ref alts, ref srcs);
             }
@@ -60,8 +67,11 @@ namespace JTTT
             if (String.IsNullOrEmpty(znajdzNaStronie.MatchWord))
             {
                 var result = MessageBox.Show("Nie podano żadnego słowa kluczowego.\nCzy chcesz wyszukać wszystkie obrazki na stronie?", "Słowo kluczowe", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                logger.Write("FindImages", "Nie podano żadnego słowa kluczowego");
+
                 if (result == DialogResult.No)
                 {
+                    logger.Write("FindImages", "Anulowane przez użytkownika");
                     Debug.WriteLine("User abort");
                     return false;
                 }
@@ -72,13 +82,17 @@ namespace JTTT
             if (srcs.Count == 0 && ok)
             {
                 MessageBox.Show("Nie znaleziono żadnych obrazków", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Write("FindImages", "Nie znaleziono żadnych obrazków");
                 return false;
             }
             else if (!ok)
+            {
+                logger.Write("FindImages", "Wystąpił błąd w ZnajdzNaStronie.FindImages");
                 return false;
-            else
-                MessageBox.Show("Znaleziono " + srcs.Count.ToString() + " obrazków", "Obrazki", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            }
+           
+            MessageBox.Show("Znaleziono " + srcs.Count.ToString() + " obrazków", "Obrazki", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            logger.Write("FindImages", "Znaleziono " + srcs.Count + " obrazkó");
             Debug.WriteLine("Site scanned");
             Debug.WriteLine("Picture founds: " + srcs.Count);
 
@@ -89,6 +103,7 @@ namespace JTTT
         {
             if (String.IsNullOrEmpty(wyslijMaila.Email))
             {
+                logger.Write("SendImages", "Nie podano adresu email");
                 MessageBox.Show("Nie podano adresu e-mail", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -109,7 +124,7 @@ namespace JTTT
             wyslijMaila.SendMail(ref message);
 
             Debug.WriteLine("Message send to address: " + wyslijMaila.Email);
-
+            logger.Write("SendImages", "Wysłano maila na adres" + wyslijMaila.Email);
             return true;
         }
 

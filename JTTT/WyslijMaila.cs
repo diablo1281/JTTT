@@ -17,6 +17,8 @@ namespace JTTT
 {
     public partial class WyslijMaila : UserControl
     {
+        private CustomLogger logger = new CustomLogger();
+
         private string from_name = "Nasz cudowny program";
         private string from = "dotnet.JS.BR@gmail.com";
         private string pass = "Random123";
@@ -46,6 +48,7 @@ namespace JTTT
             }
             catch(Exception e)
             {
+                logger.Write(e);
                 MessageBox.Show("Niepoprawny format adresu email", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Debug.WriteLine("Exception caught: " + e.ToString());
                 return false;
@@ -92,6 +95,7 @@ namespace JTTT
             }
             catch(Exception e)
             {
+                logger.Write(e);
                 Debug.WriteLine("Error: Couldn't send email");
                 MessageBox.Show("Mail nie mógł zostać wysłany.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
