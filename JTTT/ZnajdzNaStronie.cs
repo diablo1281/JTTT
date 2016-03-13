@@ -56,8 +56,6 @@ namespace JTTT
             return System.Net.WebUtility.HtmlDecode(web_client.DownloadString(url));
         }
 
-       
-
         public bool FindImages(ref List<string> alts, ref List<string> srcs, string url, string match_word)
         {
             //Wyszukiwanie obrazów z pasującym opisem
@@ -90,7 +88,10 @@ namespace JTTT
                 url_modify = url_modify.Replace("http://", String.Empty);
                 url_modify = url_modify.Replace(".pl", String.Empty);
 
-                if (src.Contains(url_modify) && alt.ToLower().Contains(match_word.ToLower()))
+                if (!src.Contains("http://"))
+                    src = url + src;
+
+                if (alt.ToLower().Contains(match_word.ToLower()) || src.ToLower().Contains(match_word.ToLower()))
                 {
                     Debug.WriteLine("----ADD----");
                     Debug.WriteLine("alt: " + alt);
