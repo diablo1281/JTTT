@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 namespace JTTT
 {
+    [Serializable]
     class CustomLogger
     {
         private string file_path = String.Empty;

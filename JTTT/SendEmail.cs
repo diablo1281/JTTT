@@ -7,19 +7,20 @@ using System.Windows.Forms;
 
 namespace JTTT
 {
+    [Serializable]
     class SendEmail
     {
         private CustomLogger logger = new CustomLogger();
 
-        private string from_name = "Nasz cudowny program";
-        private string from = "dotnet.JS.BR@gmail.com";
-        private string pass = "Random123";
-        private MailMessage message;
         private string to;
         private string to_name;
         private string subject;
-        private bool address_ok;
+        private string from_name = "Nasz cudowny program";
+        private string from = "dotnet.JS.BR@gmail.com";
+        private string pass = "Random123";
 
+        private S22.Mail.SerializableMailMessage message;
+        
         public string Email
         {
             get
@@ -28,13 +29,7 @@ namespace JTTT
             }
         }
 
-        public bool AddressOK
-        {
-            get
-            {
-                return address_ok;
-            }
-        }
+        public bool AddressOK { get; set; }
 
         public SendEmail(string _subject, string _to, string _to_name)
         {
@@ -45,7 +40,7 @@ namespace JTTT
             message = new MailMessage();
 
             SetSubject();
-            address_ok = SetAddresses();
+            AddressOK = SetAddresses();
         }
 
         public bool SetAddresses()

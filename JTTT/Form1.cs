@@ -1,5 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace JTTT
@@ -8,7 +12,7 @@ namespace JTTT
     {
         private CustomLogger logger = new CustomLogger();
         BindingList<FindImagesAndSend> list = new BindingList<FindImagesAndSend>();
-
+        private string file_path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\list.dat";
 
         public Form1()
         {
@@ -80,11 +84,49 @@ namespace JTTT
 
         private void buttonSerialize_Click(object sender, EventArgs e)
         {
-            
+            if (list.Count == 0)
+            {
+                logger.Write("buttonDeSerialize_Click", "Nic do serializacji");
+                Debug.WriteLine("Error: Nothing to serialize");
+                MessageBox.Show("Brak elementów do serializacji.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            try
+            {
+                using (FileStream file = new FileStream(file_path, FileMode.Create, FileAccess.Write))
+                {
+                    BinaryFormatter binary_formatter = new BinaryFormatter();
+                    binary_formatter.Serialize(file, list);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Write(ex);
+                Debug.WriteLine("Error: Couldn't serialize");
+                MessageBox.Show("Błąd serializacji.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void buttonDeSerialize_Click(object sender, EventArgs e)
         {
+            try
+            {
+                using (FileStream file = new FileStream(file_path, FileMode.Open, FileAccess.Read))
+                {
+                    BinaryFormatter binary_formatter = new BinaryFormatter();
+                    list = (BindingList<FindImagesAndSend>)binary_formatter.Deserialize(file);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Write(ex);
+                Debug.WriteLine("Error: Couldn't deserialize");
+                MessageBox.Show(ex.Message, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                updateList();
+            }
 
         }
     }

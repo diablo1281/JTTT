@@ -9,26 +9,18 @@ namespace JTTT
     {
         private CustomLogger logger = new CustomLogger();
 
-        private string name;
+        public string Name { get; set; }
         private FindOnWebsite find;
         private SendEmail sender;
 
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-        }
-
         public override string ToString()
         {
-            return name;
+            return Name;
         }
 
         public FindImagesAndSend(FindOnWebsite _find, SendEmail _sender, string _name)
         {
-            name = _name;
+            Name = _name;
             find = _find;
             sender = _sender;
         }

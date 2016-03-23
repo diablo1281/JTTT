@@ -7,9 +7,11 @@ using System.Windows.Forms;
 
 namespace JTTT
 {
+    [Serializable]
     class FindOnWebsite
     {
         private CustomLogger logger = new CustomLogger();
+
         private List<string> alts;
         private List<string> srcs;
         private string url;
