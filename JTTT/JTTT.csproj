@@ -57,6 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomLogger.cs" />
+    <Compile Include="FindImagesAndSend.cs" />
+    <Compile Include="FindOnWebsite.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +67,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendEmail.cs" />
     <Compile Include="WyslijMaila.cs">
       <SubType>UserControl</SubType>
     </Compile>

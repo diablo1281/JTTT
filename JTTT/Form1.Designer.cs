@@ -37,10 +37,19 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.buttonCleanList = new System.Windows.Forms.Button();
+            this.buttonMakeList = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.textBoxName = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.wyslijMaila = new JTTT.WyslijMaila();
             this.znajdzNaStronie = new JTTT.ZnajdzNaStronie();
-            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.panel3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -79,7 +88,7 @@
             this.buttonMake.Name = "buttonMake";
             this.buttonMake.Size = new System.Drawing.Size(239, 23);
             this.buttonMake.TabIndex = 10;
-            this.buttonMake.Text = "Wykonaj";
+            this.buttonMake.Text = "Dodaj do listy";
             this.buttonMake.UseVisualStyleBackColor = true;
             this.buttonMake.Click += new System.EventHandler(this.buttonMake_Click);
             // 
@@ -107,6 +116,9 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Controls.Add(this.textBoxName);
+            this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Controls.Add(this.wyslijMaila);
             this.panel3.Controls.Add(this.znajdzNaStronie);
             this.panel3.Controls.Add(this.label1);
@@ -117,15 +129,91 @@
             this.panel3.Controls.Add(this.buttonMake);
             this.panel3.Location = new System.Drawing.Point(12, 12);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(493, 571);
+            this.panel3.Size = new System.Drawing.Size(963, 571);
             this.panel3.TabIndex = 15;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button4);
+            this.groupBox1.Controls.Add(this.button3);
+            this.groupBox1.Controls.Add(this.buttonCleanList);
+            this.groupBox1.Controls.Add(this.buttonMakeList);
+            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Location = new System.Drawing.Point(476, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(484, 311);
+            this.groupBox1.TabIndex = 17;
+            this.groupBox1.TabStop = false;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(313, 211);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(153, 34);
+            this.button4.TabIndex = 20;
+            this.button4.Text = "Serlialize";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(313, 248);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(153, 38);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "DeSerialize";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // buttonCleanList
+            // 
+            this.buttonCleanList.Location = new System.Drawing.Point(169, 211);
+            this.buttonCleanList.Name = "buttonCleanList";
+            this.buttonCleanList.Size = new System.Drawing.Size(138, 75);
+            this.buttonCleanList.TabIndex = 18;
+            this.buttonCleanList.Text = "Wyczyść listę";
+            this.buttonCleanList.UseVisualStyleBackColor = true;
+            this.buttonCleanList.Click += new System.EventHandler(this.buttonCleanList_Click);
+            // 
+            // buttonMakeList
+            // 
+            this.buttonMakeList.Location = new System.Drawing.Point(15, 211);
+            this.buttonMakeList.Name = "buttonMakeList";
+            this.buttonMakeList.Size = new System.Drawing.Size(148, 75);
+            this.buttonMakeList.TabIndex = 17;
+            this.buttonMakeList.Text = "Wykonaj";
+            this.buttonMakeList.UseVisualStyleBackColor = true;
+            this.buttonMakeList.Click += new System.EventHandler(this.buttonMakeList_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(15, 17);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(451, 173);
+            this.listBox1.TabIndex = 16;
+            // 
+            // textBoxName
+            // 
+            this.textBoxName.Location = new System.Drawing.Point(104, 470);
+            this.textBoxName.Name = "textBoxName";
+            this.textBoxName.Size = new System.Drawing.Size(353, 20);
+            this.textBoxName.TabIndex = 18;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.Location = new System.Drawing.Point(42, 470);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 18);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Nazwa ";
             // 
             // wyslijMaila
             // 
             this.wyslijMaila.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.wyslijMaila.Location = new System.Drawing.Point(20, 298);
             this.wyslijMaila.Name = "wyslijMaila";
-            this.wyslijMaila.Size = new System.Drawing.Size(441, 49);
+            this.wyslijMaila.Size = new System.Drawing.Size(441, 84);
             this.wyslijMaila.TabIndex = 15;
             this.wyslijMaila.Visible = false;
             // 
@@ -142,7 +230,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(512, 591);
+            this.ClientSize = new System.Drawing.Size(987, 591);
             this.Controls.Add(this.panel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
@@ -151,6 +239,7 @@
             this.Text = "JTTT (JS-BR)";
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -169,6 +258,14 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
         private ZnajdzNaStronie znajdzNaStronie;
         private WyslijMaila wyslijMaila;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonCleanList;
+        private System.Windows.Forms.Button buttonMakeList;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxName;
     }
 }
 
