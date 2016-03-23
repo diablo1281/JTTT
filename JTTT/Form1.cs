@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Net.Mail;
 using System.Windows.Forms;
 
 namespace JTTT
@@ -11,6 +8,7 @@ namespace JTTT
     {
         private CustomLogger logger = new CustomLogger();
         BindingList<FindImagesAndSend> list = new BindingList<FindImagesAndSend>();
+
 
         public Form1()
         {
@@ -78,6 +76,16 @@ namespace JTTT
             {
                 item.justDoIt();
             }
+        }
+
+        private void buttonSerialize_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void buttonDeSerialize_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

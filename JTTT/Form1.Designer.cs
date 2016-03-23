@@ -37,17 +37,17 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonSerialize = new System.Windows.Forms.Button();
+            this.buttonDeSerialize = new System.Windows.Forms.Button();
             this.buttonCleanList = new System.Windows.Forms.Button();
             this.buttonMakeList = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.wyslijMaila = new JTTT.WyslijMaila();
             this.znajdzNaStronie = new JTTT.ZnajdzNaStronie();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.panel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -132,10 +132,27 @@
             this.panel3.Size = new System.Drawing.Size(963, 571);
             this.panel3.TabIndex = 15;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.Location = new System.Drawing.Point(42, 470);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 18);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Nazwa ";
+            // 
+            // textBoxName
+            // 
+            this.textBoxName.Location = new System.Drawing.Point(104, 470);
+            this.textBoxName.Name = "textBoxName";
+            this.textBoxName.Size = new System.Drawing.Size(353, 20);
+            this.textBoxName.TabIndex = 18;
+            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button3);
+            this.groupBox1.Controls.Add(this.buttonSerialize);
+            this.groupBox1.Controls.Add(this.buttonDeSerialize);
             this.groupBox1.Controls.Add(this.buttonCleanList);
             this.groupBox1.Controls.Add(this.buttonMakeList);
             this.groupBox1.Controls.Add(this.listBox1);
@@ -145,23 +162,25 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             // 
-            // button4
+            // buttonSerialize
             // 
-            this.button4.Location = new System.Drawing.Point(313, 211);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(153, 34);
-            this.button4.TabIndex = 20;
-            this.button4.Text = "Serlialize";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonSerialize.Location = new System.Drawing.Point(313, 211);
+            this.buttonSerialize.Name = "buttonSerialize";
+            this.buttonSerialize.Size = new System.Drawing.Size(153, 34);
+            this.buttonSerialize.TabIndex = 20;
+            this.buttonSerialize.Text = "Serlialize";
+            this.buttonSerialize.UseVisualStyleBackColor = true;
+            this.buttonSerialize.Click += new System.EventHandler(this.buttonSerialize_Click);
             // 
-            // button3
+            // buttonDeSerialize
             // 
-            this.button3.Location = new System.Drawing.Point(313, 248);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(153, 38);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "DeSerialize";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonDeSerialize.Location = new System.Drawing.Point(313, 248);
+            this.buttonDeSerialize.Name = "buttonDeSerialize";
+            this.buttonDeSerialize.Size = new System.Drawing.Size(153, 38);
+            this.buttonDeSerialize.TabIndex = 19;
+            this.buttonDeSerialize.Text = "DeSerialize";
+            this.buttonDeSerialize.UseVisualStyleBackColor = true;
+            this.buttonDeSerialize.Click += new System.EventHandler(this.buttonDeSerialize_Click);
             // 
             // buttonCleanList
             // 
@@ -190,23 +209,6 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(451, 173);
             this.listBox1.TabIndex = 16;
-            // 
-            // textBoxName
-            // 
-            this.textBoxName.Location = new System.Drawing.Point(104, 470);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(353, 20);
-            this.textBoxName.TabIndex = 18;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(42, 470);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 18);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "Nazwa ";
             // 
             // wyslijMaila
             // 
@@ -259,8 +261,8 @@
         private ZnajdzNaStronie znajdzNaStronie;
         private WyslijMaila wyslijMaila;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonSerialize;
+        private System.Windows.Forms.Button buttonDeSerialize;
         private System.Windows.Forms.Button buttonCleanList;
         private System.Windows.Forms.Button buttonMakeList;
         private System.Windows.Forms.ListBox listBox1;

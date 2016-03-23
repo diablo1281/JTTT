@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
-using System.Net.Mail;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace JTTT
 {
