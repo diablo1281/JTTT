@@ -11,7 +11,7 @@ namespace JTTT
     public partial class Form1 : Form
     {
         private CustomLogger logger = new CustomLogger();
-        BindingList<FindImagesAndSend> list = new BindingList<FindImagesAndSend>();
+        BindingList<IfThenActions> list = new BindingList<IfThenActions>();
         private string file_path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\list.dat";
 
         public Form1()
@@ -24,6 +24,7 @@ namespace JTTT
 
             //Dodaj do listy drugiej
             comboBoxTHEN.Items.Add("Wyślij e-maila z obrazkiem");
+            comboBoxTHEN.Items.Add("Wyświetl obrazki w przeglądarce");
             comboBoxTHEN.Items.Add("");
 
             comboBoxIF.SelectedItem = "Wyszukaj obrazek związany z hasłem";
@@ -42,10 +43,27 @@ namespace JTTT
         {
             if (znajdzNaStronie.Visible && wyslijMaila.Visible)
             {
-                FindOnWebsite find = new FindOnWebsite(znajdzNaStronie.Url, znajdzNaStronie.MatchWord);
-                SendEmail send = new SendEmail(wyslijMaila.Subject, wyslijMaila.Email, "Client");
+                var find = new FindOnWebsite(znajdzNaStronie.Url, znajdzNaStronie.MatchWord);
+                var send = new SendEmail(wyslijMaila.Subject, wyslijMaila.Email, "Client");
 
-                FindImagesAndSend con_act = new FindImagesAndSend(find, send, textBoxName.Text);
+                var con_act = new IfThenActions(find, send, textBoxName.Text);
+
+                if(!send.AddressOK)
+                {
+                    logger.Write("buttonMake_Click", "Błąd adresu email");
+                    Debug.WriteLine("Error: Email address corrupt");
+                    return;
+                }
+
+                list.Add(con_act);
+                updateList();
+            }
+            else if(znajdzNaStronie.Visible && comboBoxTHEN.Text == "Wyświetl obrazki w przeglądarce")
+            {
+                var find = new FindOnWebsite(znajdzNaStronie.Url, znajdzNaStronie.MatchWord);
+                var show = new ShowOnBrowser(find);
+
+                var con_act = new IfThenActions(find, show, textBoxName.Text);
 
                 list.Add(con_act);
                 updateList();
@@ -88,7 +106,7 @@ namespace JTTT
             {
                 logger.Write("buttonDeSerialize_Click", "Nic do serializacji");
                 Debug.WriteLine("Error: Nothing to serialize");
-                MessageBox.Show("Brak elementów do serializacji.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Brak elementów do serializacji.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -98,6 +116,11 @@ namespace JTTT
                     BinaryFormatter binary_formatter = new BinaryFormatter();
                     binary_formatter.Serialize(file, list);
                 }
+
+                logger.Write("buttonDeSerialize_Click", "Serializacja zakończona sukcesem");
+                Debug.WriteLine("Error: Serialize success");
+                MessageBox.Show("Serializacja zakończona pomyślnie.", "Serialize", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             catch (Exception ex)
             {
@@ -111,11 +134,27 @@ namespace JTTT
         {
             try
             {
+                if (list.Count != 0)
+                {
+                    var answer = MessageBox.Show("Czy chcesz wczytać zapisane dane? \nBierząca zawartość listy zostanie usunięta!", "Uwaga", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (answer == DialogResult.No)
+                    {
+                        logger.Write("buttonDeSerialize_Click", "Przerwane przez użytkownika");
+                        Debug.WriteLine("Info: Abort by user");
+                        return;
+                    }
+                }
                 using (FileStream file = new FileStream(file_path, FileMode.Open, FileAccess.Read))
                 {
                     BinaryFormatter binary_formatter = new BinaryFormatter();
-                    list = (BindingList<FindImagesAndSend>)binary_formatter.Deserialize(file);
+                    list = (BindingList<IfThenActions>)binary_formatter.Deserialize(file);
                 }
+
+                logger.Write("buttonDeSerialize_Click", "Deserializacja zakończona sukcesem");
+                Debug.WriteLine("Info: Deserialize success");
+                MessageBox.Show("Deserializacja zakończona pomyślnie.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             catch (Exception ex)
             {

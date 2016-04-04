@@ -60,6 +60,9 @@ namespace JTTT
         public FindOnWebsite(string _url, string _match_word)
         {
             url = _url;
+            if (!url.Contains("http://") && url != "")
+                url = "http://" + url;
+
             match_word = _match_word;
             alts = new List<string>();
             srcs = new List<string>();
@@ -71,7 +74,7 @@ namespace JTTT
             {
                 var web_request = WebRequest.Create(url);
                 var web_response = web_request.GetResponse();
-
+                web_request.Abort();
                 Debug.WriteLine("URL is exist");
             }
             catch (WebException e)
@@ -86,7 +89,9 @@ namespace JTTT
             web_client.Encoding = Encoding.UTF8;
             logger.Write("GetPageHtml", "Załadowano stronę " + url);
 
-            return System.Net.WebUtility.HtmlDecode(web_client.DownloadString(url));
+            var page = WebUtility.HtmlDecode(web_client.DownloadString(url));
+
+            return page;
         }
 
         public bool FindImagesOnWebsite()
@@ -110,6 +115,12 @@ namespace JTTT
             }
 
             html.LoadHtml(page_html);
+
+            if(srcs.Count != 0)
+            {
+                srcs.Clear();
+                alts.Clear();
+            }
 
             var nodes = html.DocumentNode.Descendants("img");
             foreach (var node in nodes)
