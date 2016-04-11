@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
@@ -8,14 +9,18 @@ using System.Windows.Forms;
 namespace JTTT
 {
     [Serializable]
-    class FindOnWebsite
+    public class FindOnWebsite
     {
         private CustomLogger logger = new CustomLogger();
 
         private List<string> alts;
         private List<string> srcs;
-        private string url;
-        private string match_word;
+
+
+        [Key]
+        public int Id { get; set; }
+        public string url;
+        public string match_word;
 
         public List<string> AltList
         {
@@ -55,6 +60,12 @@ namespace JTTT
             {
                 match_word = value;
             }
+        }
+
+        public FindOnWebsite()
+        { //TWORZY NOWY OBIEKT LISTY NA (PRZYPISUJE) DO POLA ALTS
+            alts = new List<string>();
+            srcs = new List<string>();
         }
 
         public FindOnWebsite(string _url, string _match_word)
@@ -116,7 +127,7 @@ namespace JTTT
 
             html.LoadHtml(page_html);
 
-            if(srcs.Count != 0)
+            if (srcs.Count != 0)
             {
                 srcs.Clear();
                 alts.Clear();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -6,21 +7,29 @@ namespace JTTT
 {
 
     [Serializable]
-    class IfThenActions
+    public class IfThenActions
     {
-        private enum Type { FindSend, FindShow}
+        public enum Type { FindSend, FindShow }
 
         private CustomLogger logger = new CustomLogger();
 
+        [Key]
+        public int Id { get; set; }
         public string Name { get; set; }
-        private FindOnWebsite find;
-        private SendEmail sender;
-        private ShowOnBrowser show;
-        private Type con_act_type { get; set; }
+        // zeby ef mogl sobie wziac i pobrac ten element z bazy danych i zeby go zapisac w bazie danych
+        public virtual FindOnWebsite find { get; set; }
+        public virtual SendEmail sender { get; set; }
+        public virtual ShowOnBrowser show { get; set; }
+        public Type con_act_type { get; set; }
 
         public override string ToString()
         {
             return Name;
+        }
+
+        public IfThenActions()
+        {
+            // for EF 
         }
 
         public IfThenActions(FindOnWebsite _find, SendEmail _sender, string _name)
@@ -63,14 +72,14 @@ namespace JTTT
                         logger.Write("IfThenActions.justDoIt", "Wyszukiwanie obrazków");
                         if (!FindImages())
                             return;
-                        
+
                         logger.Write("IfThenActions.justDoIt", "Tworzenie i otwieranie htmla");
                         show.find = find;
                         show.justDoIt();
                     }
                     break;
             }
-        
+
         }
 
         public bool FindImages()

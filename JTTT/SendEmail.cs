@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
@@ -8,19 +9,20 @@ using System.Windows.Forms;
 namespace JTTT
 {
     [Serializable]
-    class SendEmail
+    public class SendEmail
     {
         private CustomLogger logger = new CustomLogger();
-
-        private string to;
-        private string to_name;
-        private string subject;
+        [Key]
+        public int Id { get; set; }
+        public string to { get; set; }
+        public string to_name { get; set; }
+        public string subject { get; set; }
         private string from_name = "Nasz cudowny program";
         private string from = "dotnet.JS.BR@gmail.com";
         private string pass = "Random123";
 
         private S22.Mail.SerializableMailMessage message;
-        
+
         public string Email
         {
             get
@@ -31,6 +33,11 @@ namespace JTTT
 
         public bool AddressOK { get; set; }
 
+        public SendEmail()
+        {
+            message = new MailMessage();
+        }
+
         public SendEmail(string _subject, string _to, string _to_name)
         {
             subject = _subject;
@@ -38,8 +45,6 @@ namespace JTTT
             to_name = _to_name;
 
             message = new MailMessage();
-
-            SetSubject();
             AddressOK = SetAddresses();
         }
 
@@ -91,6 +96,9 @@ namespace JTTT
 
         public void SendMail()
         {
+            SetSubject();
+            AddressOK = SetAddresses();
+
             try
             {
                 SmtpClient client = new SmtpClient();

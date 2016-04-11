@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,21 +10,29 @@ using System.Threading.Tasks;
 namespace JTTT
 {
     [Serializable]
-    class ShowOnBrowser
+    public class ShowOnBrowser
     {
         private CustomLogger logger = new CustomLogger();
+
+        [Key]
+        public int Id { get; set; }
         public FindOnWebsite find { get; set; }
-        private string html_path;
-        private string html_body;
+        public string html_path;
+        public string html_body;
+
+        public ShowOnBrowser()
+        {
+
+        }
 
         public ShowOnBrowser(FindOnWebsite _find)
         {
             find = _find;
-            html_path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\picture_page.html";
         }
 
         public void justDoIt()
         {
+            html_path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\picture_page.html";
             generateHtml();
             System.Diagnostics.Process.Start(html_path);
         }
@@ -31,7 +40,7 @@ namespace JTTT
         private void generateHtml()
         {
             html_body = "<html><body>";
-            
+
             for (int i = 0; i < find.SrcList.Count; i++)
             {
                 html_body += "\n<br><b><h3>" + find.AltList[i] + "</h3></b></br>";

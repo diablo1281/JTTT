@@ -29,8 +29,16 @@ namespace JTTT
 
             comboBoxIF.SelectedItem = "Wyszukaj obrazek związany z hasłem";
             comboBoxTHEN.SelectedItem = "Wyślij e-maila z obrazkiem";
-        }
 
+            // wczytywanie z bazy danych
+            var db = new JTTTDBContext();
+            foreach (var el in db.IfThatActions.Include("find").Include("sender").Include("show"))
+            {
+                this.list.Add(el);
+            }
+            this.updateList();
+        }
+        //update listy - wysiwetlanie na ekran
         private void updateList()
         {
             listBox1.DataSource = list;
@@ -48,17 +56,23 @@ namespace JTTT
 
                 var con_act = new IfThenActions(find, send, textBoxName.Text);
 
-                if(!send.AddressOK)
+                if (!send.AddressOK)
                 {
                     logger.Write("buttonMake_Click", "Błąd adresu email");
                     Debug.WriteLine("Error: Email address corrupt");
                     return;
                 }
-
+                // 
                 list.Add(con_act);
+
+                // dodanie akcji do bazy danych
+                var db = new JTTTDBContext();
+                db.IfThatActions.Add(con_act);
+                db.SaveChanges();
+
                 updateList();
             }
-            else if(znajdzNaStronie.Visible && comboBoxTHEN.Text == "Wyświetl obrazki w przeglądarce")
+            else if (znajdzNaStronie.Visible && comboBoxTHEN.Text == "Wyświetl obrazki w przeglądarce")
             {
                 var find = new FindOnWebsite(znajdzNaStronie.Url, znajdzNaStronie.MatchWord);
                 var show = new ShowOnBrowser(find);
@@ -66,6 +80,11 @@ namespace JTTT
                 var con_act = new IfThenActions(find, show, textBoxName.Text);
 
                 list.Add(con_act);
+                // to samo co wyzej
+                var db = new JTTTDBContext();
+                db.IfThatActions.Add(con_act);
+                db.SaveChanges();
+
                 updateList();
             }
         }
@@ -88,13 +107,33 @@ namespace JTTT
 
         private void buttonCleanList_Click(object sender, EventArgs e)
         {
+
             list.Clear();
             updateList();
+            // czyszczenie tabel w bazie dych
+            var db = new JTTTDBContext();
+            foreach (var el in db.IfThatActions)
+            {
+                db.IfThatActions.Remove(el);
+            }
+            foreach (var el in db.fow)
+            {
+                db.fow.Remove(el);
+            }
+            foreach (var el in db.sb)
+            {
+                db.sb.Remove(el);
+            }
+            foreach (var el in db.sm)
+            {
+                db.sm.Remove(el);
+            }
+            db.SaveChanges();
         }
 
         private void buttonMakeList_Click(object sender, EventArgs e)
         {
-            foreach(var item in list)
+            foreach (var item in list)
             {
                 item.justDoIt();
             }
