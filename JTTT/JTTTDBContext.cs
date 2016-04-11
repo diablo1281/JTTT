@@ -9,7 +9,6 @@ namespace JTTT
 {
     class JTTTDBContext : DbContext
     {
-        string halo = "won";
         public JTTTDBContext()
         {
             Configuration.ProxyCreationEnabled = false;
