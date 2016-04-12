@@ -94,6 +94,14 @@ namespace JTTT
             }
         }
 
+        public void AddTextToBody(string text)
+        {
+            message.IsBodyHtml = false;
+
+            message.Body = text;
+            message.BodyEncoding = System.Text.Encoding.UTF8;
+        }
+
         public void SendMail()
         {
             SetSubject();

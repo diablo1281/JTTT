@@ -73,6 +73,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckTemp.cs" />
     <Compile Include="CheckWeather.cs" />
     <Compile Include="CustomLogger.cs" />
     <Compile Include="IfThenActions.cs" />
@@ -86,6 +87,11 @@
     <Compile Include="JTTTDBContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SendEmail.cs" />
     <Compile Include="ShowOnBrowser.cs" />
     <Compile Include="sprawdzPogode.cs">
@@ -118,14 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="sprawdzPogode.resx">
       <DependentUpon>sprawdzPogode.cs</DependentUpon>
     </EmbeddedResource>

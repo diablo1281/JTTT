@@ -9,7 +9,7 @@ namespace JTTT
     [Serializable]
     public class IfThenActions
     {
-        public enum Type { FindSend, FindShow }
+        public enum Type { FindSend, CheckSend, FindShow, CheckShow }
 
         private CustomLogger logger = new CustomLogger();
 
@@ -18,6 +18,7 @@ namespace JTTT
         public string Name { get; set; }
         // zeby ef mogl sobie wziac i pobrac ten element z bazy danych i zeby go zapisac w bazie danych
         public virtual FindOnWebsite find { get; set; }
+        public virtual CheckTemp checker { get; set; }
         public virtual SendEmail sender { get; set; }
         public virtual ShowOnBrowser show { get; set; }
         public Type con_act_type { get; set; }
@@ -42,6 +43,16 @@ namespace JTTT
             con_act_type = Type.FindSend;
         }
 
+        public IfThenActions(CheckTemp _checker, SendEmail _sender, string _name)
+        {
+            Name = _name;
+            if (String.IsNullOrEmpty(Name))
+                Name = "Is temperature higher than " + _checker.Temp + "? Send it to " + _sender.Email;
+            checker = _checker;
+            sender = _sender;
+            con_act_type = Type.CheckSend;
+        }
+
         public IfThenActions(FindOnWebsite _find, ShowOnBrowser _show, string _name)
         {
             Name = _name;
@@ -64,6 +75,19 @@ namespace JTTT
                         logger.Write("IfThenActions.justDoIt", "Wysyłanie emaila");
                         if (!SendImages())
                             return;
+                    }
+                    break;
+
+                case Type.CheckSend:
+                    {
+                        logger.Write("IfThenActions.justDoIt", "Sprawdzanie temperatury");
+                        checker.downloadJson();
+
+                        if(checker.Data.main.temp >= checker.Temp)
+                        {
+                            sender.AddTextToBody(checker.ToString());
+                            sender.SendMail();
+                        }
                     }
                     break;
 

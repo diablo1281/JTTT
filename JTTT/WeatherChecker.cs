@@ -22,8 +22,6 @@ namespace JTTT
         string[] wind_direct = { "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW" };
 
         private string icon_address = "http://openweathermap.org/img/w/";
-        private string server_address = "http://api.openweathermap.org/data/2.5/";
-        private string api_key = "21deb6b8280b4fe4036a7feba7b47c1a";
 
         public WeatherChecker()
         {
@@ -32,19 +30,9 @@ namespace JTTT
 
         private void buttonCheck_MouseClick(object sender, MouseEventArgs e)
         {
-            downloadJson();
-        }
-
-        private void downloadJson()
-        {
-            var api_url = server_address + "weather?q=" + textBoxCity.Text + "&appid=" + api_key;
-
-            WebClient web_client = new WebClient();
-            web_client.Encoding = Encoding.UTF8;
-            var json = web_client.DownloadString(api_url);
-
-            var our_data = JsonConvert.DeserializeObject<WeatherData>(json);
-            setLabels(our_data);
+            var our_date = new CheckTemp(textBoxCity.Text, 0);
+            our_date.downloadJson();
+            setLabels(our_date.Data);
         }
 
         private void setLabels(WeatherData data)
@@ -79,7 +67,9 @@ namespace JTTT
             if (e.KeyChar == (char)Keys.Enter)
             {
                 e.Handled = true;
-                downloadJson();
+                var our_date = new CheckTemp(textBoxCity.Text, 0);
+                our_date.downloadJson();
+                setLabels(our_date.Data);
             }
         }
     }

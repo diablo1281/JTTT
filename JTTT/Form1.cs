@@ -88,6 +88,33 @@ namespace JTTT
 
                 updateList();
             }
+            else if(sprawdzPogode1.Visible && wyslijMaila.Visible)
+            {
+                var checker = new CheckTemp(sprawdzPogode1.City, sprawdzPogode1.Temp);
+                var send = new SendEmail(wyslijMaila.Subject, wyslijMaila.Email, "Client");
+
+                var con_act = new IfThenActions(checker, send, textBoxName.Text);
+
+                if (!send.AddressOK)
+                {
+                    logger.Write("buttonMake_Click", "Błąd adresu email");
+                    Debug.WriteLine("Error: Email address corrupt");
+                    return;
+                }
+                // 
+                list.Add(con_act);
+
+                // dodanie akcji do bazy danych
+                var db = new JTTTDBContext();
+                db.IfThatActions.Add(con_act);
+                db.SaveChanges();
+
+                updateList();
+            } else if(sprawdzPogode1.Visible && comboBoxTHEN.Text == "Wyświetl obrazki w przeglądarce")
+            {
+                var checker = new CheckTemp(sprawdzPogode1.City, sprawdzPogode1.Temp);
+                var show = new ShowOnBrowser();
+            }
         }
 
         private void comboBoxIF_SelectedIndexChanged(object sender, EventArgs e)

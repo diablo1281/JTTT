@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace JTTT
 {
+    [Serializable]
     public class Coord
     {
         public double lon { get; set; }
         public double lat { get; set; }
     }
 
+    [Serializable]
     public class Weather
     {
         public int id { get; set; }
@@ -20,6 +22,7 @@ namespace JTTT
         public string icon { get; set; }
     }
 
+    [Serializable]
     public class Main
     {
         public double temp { get; set; }
@@ -29,17 +32,20 @@ namespace JTTT
         public double temp_max { get; set; }
     }
 
+    [Serializable]
     public class Wind
     {
         public double speed { get; set; }
         public int deg { get; set; }
     }
 
+    [Serializable]
     public class Clouds
     {
         public int all { get; set; }
     }
 
+    [Serializable]
     public class Sys
     {
         public int type { get; set; }
@@ -50,6 +56,7 @@ namespace JTTT
         public int sunset { get; set; }
     }
 
+    [Serializable]
     public class WeatherData
     {
         public Coord coord { get; set; }
