@@ -20,15 +20,16 @@ namespace JTTT
 
             //Dodaj do listy pierwszej
             comboBoxIF.Items.Add("Wyszukaj obrazek związany z hasłem");
+            comboBoxIF.Items.Add("Sprawdź temperaturę");
             comboBoxIF.Items.Add("");
 
             //Dodaj do listy drugiej
-            comboBoxTHEN.Items.Add("Wyślij e-maila z obrazkiem");
-            comboBoxTHEN.Items.Add("Wyświetl obrazki w przeglądarce");
+            comboBoxTHEN.Items.Add("Wyślij e-mailem");
+            comboBoxTHEN.Items.Add("Wyświetl w przeglądarce");
             comboBoxTHEN.Items.Add("");
 
-            comboBoxIF.SelectedItem = "Wyszukaj obrazek związany z hasłem";
-            comboBoxTHEN.SelectedItem = "Wyślij e-maila z obrazkiem";
+            comboBoxIF.SelectedItem = "";
+            comboBoxTHEN.SelectedItem = "";
 
             // wczytywanie z bazy danych
             var db = new JTTTDBContext();
@@ -95,11 +96,16 @@ namespace JTTT
                 znajdzNaStronie.Visible = true;
             else
                 znajdzNaStronie.Visible = false;
+
+            if (comboBoxIF.Text == "Sprawdź temperaturę")
+                sprawdzPogode1.Visible = true;
+            else
+                sprawdzPogode1.Visible = false;
         }
 
         private void comboBoxTHEN_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxTHEN.Text == "Wyślij e-maila z obrazkiem")
+            if (comboBoxTHEN.Text == "Wyślij e-mailem")
                 wyslijMaila.Visible = true;
             else
                 wyslijMaila.Visible = false;
@@ -206,6 +212,12 @@ namespace JTTT
                 updateList();
             }
 
+        }
+
+        private void buttonWeather_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (var window = new WeatherChecker())
+                window.ShowDialog();
         }
     }
 }

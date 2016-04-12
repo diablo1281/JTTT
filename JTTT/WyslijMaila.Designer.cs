@@ -46,7 +46,7 @@
             // 
             // textBoxMail
             // 
-            this.textBoxMail.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxMail.Font = new System.Drawing.Font("Consolas", 8.25F);
             this.textBoxMail.Location = new System.Drawing.Point(81, 12);
             this.textBoxMail.Name = "textBoxMail";
             this.textBoxMail.Size = new System.Drawing.Size(322, 20);
@@ -64,7 +64,7 @@
             // 
             // textBoxSubject
             // 
-            this.textBoxSubject.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxSubject.Font = new System.Drawing.Font("Consolas", 8.25F);
             this.textBoxSubject.Location = new System.Drawing.Point(81, 47);
             this.textBoxSubject.Name = "textBoxSubject";
             this.textBoxSubject.Size = new System.Drawing.Size(322, 20);

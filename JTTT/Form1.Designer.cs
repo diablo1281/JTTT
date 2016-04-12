@@ -45,9 +45,11 @@
             this.buttonCleanList = new System.Windows.Forms.Button();
             this.buttonMakeList = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.sprawdzPogode1 = new JTTT.sprawdzPogode();
             this.wyslijMaila = new JTTT.WyslijMaila();
             this.znajdzNaStronie = new JTTT.ZnajdzNaStronie();
-            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.buttonWeather = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -116,6 +118,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.buttonWeather);
+            this.panel3.Controls.Add(this.sprawdzPogode1);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.textBoxName);
             this.panel3.Controls.Add(this.groupBox1);
@@ -210,6 +214,17 @@
             this.listBox1.Size = new System.Drawing.Size(451, 173);
             this.listBox1.TabIndex = 16;
             // 
+            // sprawdzPogode1
+            // 
+            this.sprawdzPogode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sprawdzPogode1.City = "";
+            this.sprawdzPogode1.Location = new System.Drawing.Point(20, 112);
+            this.sprawdzPogode1.Name = "sprawdzPogode1";
+            this.sprawdzPogode1.Size = new System.Drawing.Size(437, 90);
+            this.sprawdzPogode1.TabIndex = 20;
+            this.sprawdzPogode1.Temp = 0;
+            this.sprawdzPogode1.Visible = false;
+            // 
             // wyslijMaila
             // 
             this.wyslijMaila.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -227,6 +242,16 @@
             this.znajdzNaStronie.Size = new System.Drawing.Size(437, 90);
             this.znajdzNaStronie.TabIndex = 14;
             this.znajdzNaStronie.Visible = false;
+            // 
+            // buttonWeather
+            // 
+            this.buttonWeather.Location = new System.Drawing.Point(800, 532);
+            this.buttonWeather.Name = "buttonWeather";
+            this.buttonWeather.Size = new System.Drawing.Size(142, 23);
+            this.buttonWeather.TabIndex = 21;
+            this.buttonWeather.Text = "Pogoda milordzie!";
+            this.buttonWeather.UseVisualStyleBackColor = true;
+            this.buttonWeather.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonWeather_MouseClick);
             // 
             // Form1
             // 
@@ -268,6 +293,8 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxName;
+        private sprawdzPogode sprawdzPogode1;
+        private System.Windows.Forms.Button buttonWeather;
     }
 }
 
