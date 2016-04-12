@@ -63,6 +63,16 @@ namespace JTTT
             con_act_type = Type.FindShow;
         }
 
+        public IfThenActions(CheckTemp _checker, ShowOnBrowser _show, string _name)
+        {
+            Name = _name;
+            if (String.IsNullOrEmpty(Name))
+                Name = "Is temperature higher than " + _checker.Temp + "? Show me it";
+            checker = _checker;
+            show = _show;
+            con_act_type = Type.CheckShow;
+        }
+
         public void justDoIt()
         {
             switch (con_act_type)
@@ -100,6 +110,18 @@ namespace JTTT
                         logger.Write("IfThenActions.justDoIt", "Tworzenie i otwieranie htmla");
                         show.find = find;
                         show.justDoIt();
+                    }
+                    break;
+
+                case Type.CheckShow:
+                    {
+                        logger.Write("IfThenActions.justDoIt", "Sprawdzanie temperatury");
+                        checker.downloadJson();
+
+                        if (checker.Data.main.temp >= checker.Temp)
+                        {
+                            show.justDoIt(checker.ToString());
+                        }
                     }
                     break;
             }

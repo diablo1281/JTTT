@@ -37,6 +37,13 @@ namespace JTTT
             System.Diagnostics.Process.Start(html_path);
         }
 
+        public void justDoIt(string text)
+        {
+            html_path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\picture_page.html";
+            generateHtml(text);
+            System.Diagnostics.Process.Start(html_path);
+        }
+
         private void generateHtml()
         {
             html_body = "<html><body>";
@@ -54,6 +61,15 @@ namespace JTTT
                 writer.Write(html_body);
             }
 
+        }
+
+        public void generateHtml(string text)
+        {
+            html_body = "<html><body>";
+            html_body += text;
+            html_body += "</body></html>";
+
+            html_body.Replace("\n", "</br>");
         }
     }
 }

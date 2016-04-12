@@ -16,7 +16,6 @@ namespace JTTT
 
         private string server_address = "http://api.openweathermap.org/data/2.5/";
         private string api_key = "21deb6b8280b4fe4036a7feba7b47c1a";
-        private string icon_address = "http://openweathermap.org/img/w/";
 
         [Key]
         public int Id { get; set; }

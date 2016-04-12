@@ -114,6 +114,8 @@ namespace JTTT
             {
                 var checker = new CheckTemp(sprawdzPogode1.City, sprawdzPogode1.Temp);
                 var show = new ShowOnBrowser();
+
+                var con_act = new IfThenActions(checker, show, textBoxName.Text);
             }
         }
 
