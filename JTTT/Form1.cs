@@ -80,15 +80,17 @@ namespace JTTT
 
                 var con_act = new IfThenActions(find, show, textBoxName.Text);
 
+                // 
                 list.Add(con_act);
-                // to samo co wyzej
+
+                // dodanie akcji do bazy danych
                 var db = new JTTTDBContext();
                 db.IfThatActions.Add(con_act);
                 db.SaveChanges();
 
                 updateList();
             }
-            else if(sprawdzPogode1.Visible && wyslijMaila.Visible)
+            else if (sprawdzPogode1.Visible && wyslijMaila.Visible)
             {
                 var checker = new CheckTemp(sprawdzPogode1.City, sprawdzPogode1.Temp);
                 var send = new SendEmail(wyslijMaila.Subject, wyslijMaila.Email, "Client");
@@ -110,12 +112,23 @@ namespace JTTT
                 db.SaveChanges();
 
                 updateList();
-            } else if(sprawdzPogode1.Visible && comboBoxTHEN.Text == "Wyświetl obrazki w przeglądarce")
+            }
+            else if (sprawdzPogode1.Visible && comboBoxTHEN.Text == "Wyświetl obrazki w przeglądarce")
             {
                 var checker = new CheckTemp(sprawdzPogode1.City, sprawdzPogode1.Temp);
                 var show = new ShowOnBrowser();
 
                 var con_act = new IfThenActions(checker, show, textBoxName.Text);
+
+                // 
+                list.Add(con_act);
+
+                // dodanie akcji do bazy danych
+                var db = new JTTTDBContext();
+                db.IfThatActions.Add(con_act);
+                db.SaveChanges();
+
+                updateList();
             }
         }
 
