@@ -65,7 +65,7 @@ namespace JTTT
                 }
                 // 
                 list.Add(con_act);
-
+                Debug.WriteLine("1");
                 // dodanie akcji do bazy danych
                 var db = new JTTTDBContext();
                 db.IfThatActions.Add(con_act);
@@ -73,7 +73,7 @@ namespace JTTT
 
                 updateList();
             }
-            else if (znajdzNaStronie.Visible && comboBoxTHEN.Text == "Wyświetl obrazki w przeglądarce")
+            else if (znajdzNaStronie.Visible && comboBoxTHEN.Text == "Wyświetl w przeglądarce")
             {
                 var find = new FindOnWebsite(znajdzNaStronie.Url, znajdzNaStronie.MatchWord);
                 var show = new ShowOnBrowser(find);
@@ -82,7 +82,7 @@ namespace JTTT
 
                 // 
                 list.Add(con_act);
-
+                Debug.WriteLine("2");
                 // dodanie akcji do bazy danych
                 var db = new JTTTDBContext();
                 db.IfThatActions.Add(con_act);
@@ -105,7 +105,7 @@ namespace JTTT
                 }
                 // 
                 list.Add(con_act);
-
+                Debug.WriteLine("3");
                 // dodanie akcji do bazy danych
                 var db = new JTTTDBContext();
                 db.IfThatActions.Add(con_act);
@@ -113,7 +113,7 @@ namespace JTTT
 
                 updateList();
             }
-            else if (sprawdzPogode1.Visible && comboBoxTHEN.Text == "Wyświetl obrazki w przeglądarce")
+            else if (sprawdzPogode1.Visible && comboBoxTHEN.Text == "Wyświetl w przeglądarce")
             {
                 var checker = new CheckTemp(sprawdzPogode1.City, sprawdzPogode1.Temp);
                 var show = new ShowOnBrowser();
@@ -122,13 +122,17 @@ namespace JTTT
 
                 // 
                 list.Add(con_act);
-
+                Debug.WriteLine("4");
                 // dodanie akcji do bazy danych
                 var db = new JTTTDBContext();
                 db.IfThatActions.Add(con_act);
                 db.SaveChanges();
 
                 updateList();
+            }
+            else
+            {
+                MessageBox.Show("Nie wybrano akcji lub warunku.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

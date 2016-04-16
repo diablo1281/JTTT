@@ -46,7 +46,7 @@ namespace JTTT
 
         private void generateHtml()
         {
-            html_body = "<html><body>";
+            html_body = "<html><body><head><meta charset=\"utf - 8\"></head>";
 
             for (int i = 0; i < find.SrcList.Count; i++)
             {
@@ -65,11 +65,16 @@ namespace JTTT
 
         public void generateHtml(string text)
         {
-            html_body = "<html><body>";
+            html_body = "<html><body><head><meta charset=\"utf - 8\"></head>";
             html_body += text;
             html_body += "</body></html>";
 
             html_body.Replace("\n", "</br>");
+
+            using (var writer = new StreamWriter(File.Create(html_path)))
+            {
+                writer.Write(html_body);
+            }
         }
     }
 }
