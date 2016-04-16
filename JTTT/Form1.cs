@@ -65,7 +65,7 @@ namespace JTTT
                 }
                 // 
                 list.Add(con_act);
-                Debug.WriteLine("1");
+                
                 // dodanie akcji do bazy danych
                 var db = new JTTTDBContext();
                 db.IfThatActions.Add(con_act);
@@ -82,7 +82,7 @@ namespace JTTT
 
                 // 
                 list.Add(con_act);
-                Debug.WriteLine("2");
+
                 // dodanie akcji do bazy danych
                 var db = new JTTTDBContext();
                 db.IfThatActions.Add(con_act);
@@ -105,7 +105,7 @@ namespace JTTT
                 }
                 // 
                 list.Add(con_act);
-                Debug.WriteLine("3");
+
                 // dodanie akcji do bazy danych
                 var db = new JTTTDBContext();
                 db.IfThatActions.Add(con_act);
@@ -122,7 +122,7 @@ namespace JTTT
 
                 // 
                 list.Add(con_act);
-                Debug.WriteLine("4");
+
                 // dodanie akcji do bazy danych
                 var db = new JTTTDBContext();
                 db.IfThatActions.Add(con_act);
