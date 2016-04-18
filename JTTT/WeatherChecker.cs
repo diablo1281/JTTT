@@ -31,7 +31,8 @@ namespace JTTT
         private void buttonCheck_MouseClick(object sender, MouseEventArgs e)
         {
             var our_date = new CheckTemp(textBoxCity.Text, 0);
-            our_date.downloadJson();
+            if (!our_date.downloadJson())
+                return;
             setLabels(our_date.Data);
         }
 
@@ -68,7 +69,8 @@ namespace JTTT
             {
                 e.Handled = true;
                 var our_date = new CheckTemp(textBoxCity.Text, 0);
-                our_date.downloadJson();
+                if (!our_date.downloadJson())
+                    return;
                 setLabels(our_date.Data);
             }
         }

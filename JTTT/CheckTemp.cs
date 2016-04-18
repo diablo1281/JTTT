@@ -2,16 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace JTTT
 {
     [Serializable]
     public class CheckTemp
     {
+        private CustomLogger logger = new CustomLogger();
+
         string[] wind_direct = { "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW" };
 
         private string server_address = "http://api.openweathermap.org/data/2.5/";
@@ -30,7 +34,7 @@ namespace JTTT
             Temp = _temp;
         }
 
-        public void downloadJson()
+        public bool downloadJson()
         {
             var api_url = server_address + "weather?q=" + City + "&appid=" + api_key;
 
@@ -38,7 +42,25 @@ namespace JTTT
             web_client.Encoding = Encoding.UTF8;
             var json = web_client.DownloadString(api_url);
 
-            Data = JsonConvert.DeserializeObject<WeatherData>(json);
+            if (json.Contains("Error"))
+            {
+                MessageBox.Show("Błąd pobierania danych.\nNieznaleziono miasta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            Debug.WriteLine(json);
+            try
+            {
+                Data = JsonConvert.DeserializeObject<WeatherData>(json);
+            }
+            catch(Exception ex)
+            {
+                logger.Write(ex);
+                Debug.WriteLine("Error: Couldn't deserialize JSON");
+                MessageBox.Show("Błąd podczas deserializacji JSON.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
         }
 
         public override string ToString()

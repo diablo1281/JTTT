@@ -65,13 +65,15 @@ namespace JTTT
 
         public void generateHtml(string text)
         {
-            html_body = "<html><body><head><meta charset=\"utf - 8\"></head>";
-            html_body += text;
+            html_body = "<!DOCTYPE html>";
+            html_body += "<html>\n";
+            html_body += "<body>\n";
+            html_body += text.Replace(Environment.NewLine, "</br>").Replace("\r", "</br>").Replace("\n", "</br>");
             html_body += "</body></html>";
-
             html_body.Replace("\n", "</br>");
+            
 
-            using (var writer = new StreamWriter(File.Create(html_path)))
+            using (var writer = new StreamWriter(File.Create(html_path), Encoding.UTF8))
             {
                 writer.Write(html_body);
             }
